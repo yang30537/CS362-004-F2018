@@ -671,14 +671,13 @@ void adventurerEffect(struct gameState *state, int currentPlayer, int* temphand)
 		state->discard[currentPlayer][state->discardCount[currentPlayer]++]=*(temphand + z - 1); // discard all cards in play that have been drawn
 		z=z-1;
 	}
-	
 }
 void smithyEffect(int currentPlayer, struct gameState *state, int handPos) {
 	//+3 Cards
 	int i;
 	for (i = 0; i < 3; i++) {
 		drawCard(currentPlayer, state);
-		printf("cardDrawn=%d\n", state->hand[currentPlayer][state->handCount[currentPlayer]-1]);
+		//printf("cardDrawn=%d\n", state->hand[currentPlayer][state->handCount[currentPlayer]-1]);
 	}			
 	//discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
@@ -755,7 +754,6 @@ void councilRoomEffect(int currentPlayer, struct gameState *state, int handPos) 
 	//put played card in played card pile
 	discardCard(handPos, currentPlayer, state, 0);
 } 
-
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
