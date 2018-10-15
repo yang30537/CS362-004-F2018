@@ -128,6 +128,11 @@ int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
 
-void adventurerEffect(struct gameState *state, int drawntreasure, int currentPlayer, int cardDrawn, int z, int* temphand);
+// Refactored cardEffect functions defined here:
+void adventurerEffect(struct gameState *state, int currentPlayer, int* temphand);
+void smithyEffect(int currentPlayer, struct gameState *state, int handPos);
+void villageEffect(int currentPlayer, struct gameState *state, int handPos);
+void feastEffect(struct gameState *state, int currentPlayer, int* temphand, int choice1);
+void councilRoomEffect(int currentPlayer, struct gameState *state, int handPos);
 
 #endif
