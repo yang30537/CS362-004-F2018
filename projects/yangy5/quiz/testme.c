@@ -13,7 +13,7 @@ char inputChar()
 
 char *inputString()
 {
-    int charlib[4] = {114, 115, 116, 101};
+    int charlib[4] = {114, 115, 116, 101}; //Ascii values for r,s,t,e
     static char rands[6];
     int i;
     for (i = 0; i < 5; i++) {
