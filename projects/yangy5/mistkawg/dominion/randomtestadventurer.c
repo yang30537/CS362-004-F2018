@@ -37,22 +37,23 @@ int main() {
     failedTestCount = 0;
 
 
-	for (i = 0; i < 50; i++) {
+	for (i = 0; i < 1000; i++) {
 	    int k[10] = {adventurer, council_room, cutpurse, embargo, mine,
                          minion, sea_hag, smithy, tribute, village};
 
         numPlayers = 2;
 		curPlayer = 0;
+
 		
-		seed = rand() % 50;
+		seed = rand();
 
         G = malloc(sizeof(struct gameState));
 	    initializeGame(numPlayers, k, seed, G);
 
 	    // init  
-	    //G->deckCount[0] = 100;
-	    //G->handCount[0] = 100;
-	    //G->discardCount[0] = 0;
+	    G->deckCount[0] = 100;
+	    G->handCount[0] = 100;
+	    G->discardCount[0] = 100;
 
 		copperCount = 0;
 		silverCount = 0;
@@ -67,7 +68,7 @@ int main() {
 
 	    // fill deck with random cards, only add treasure cards to deck
 		int randNum, randCard;
-		for (n = 0; n < 50; n++) {
+		for (n = 0; n < 100; n++) {
 	    	randNum = rand() % 10;
 	    	randCard = rand() % 10;
 	    	if(randNum == 0){
@@ -86,13 +87,17 @@ int main() {
 
 	    if (coinCount < 2) {
 	    	failedTestCount++;
-            free(G);
             i = i - 1;
+            G->deckCount[0] = 100;
+		    G->handCount[0] = 0;
+		    G->discardCount[0] = 0;
+            free(G);
             continue;
 	    }
 
 
-	    cardAdventurer(G, 0); 
+	    cardAdventurer(G, curPlayer);
+
  
 
 	    // get number of each treasure cards drawn
@@ -129,19 +134,20 @@ int main() {
      
 	    // check the discard cards 
 	    // if any of the quantity fails to match, test fails
-	    if (discardCopper == copperCount && discardGold == goldCount && discardSilver == silverCount) {
+	    if (discardCopper != copperCount || discardGold != goldCount || discardSilver != silverCount) {
 	    	failedTestCount++;
 	    }
 
+	    printf("silverHand: %d, copperHand: %d, goldHand: %d\n", copperCount, goldCount, silverCount);
+	    printf("silverDiscard: %d, copper1: %d, goldDiscard: %d\n\n", discardCopper, discardGold, discardSilver);
 
-	  
-	    printf("silver: %d, copper: %d, gold: %d\n", copperCount, goldCount, silverCount);
-	    printf("silver1: %d, copper1: %d, gold1: %d\n\n", discardCopper, discardGold, discardSilver);
-
+	    G->deckCount[0] = 0;
+	    G->handCount[0] = 0;
+	    G->discardCount[0] = 0;
 
 	    free(G);
 	}
-
+	//free(G);
 	printf("after (%d) tests, number of failed tests is: (%d) \n", i, failedTestCount);
 	return 0;
 }
